@@ -16,6 +16,22 @@ function prepare(event) {
     }).catch(() => { summary.focus(); summary.select(); });
   } else { summary.focus(); summary.select(); }
 }
+window.dataLayer = window.dataLayer || [];
+function track(event, data) { window.dataLayer.push(Object.assign({ event }, data)); }
+function ctaLocation(link) {
+  if (link.closest('header')) return 'cabecalho';
+  if (link.closest('#form-result')) return 'formulario_continuar';
+  if (link.id === 'form-cta') return 'formulario';
+  const section = link.closest('section');
+  return section ? section.className.replace('section', '').trim() : 'outro';
+}
+document.addEventListener('click', event => {
+  const link = event.target.closest('[data-cta]');
+  if (!link || (link.id === 'form-cta' && !form.checkValidity())) return;
+  const data = { cta_texto: link.textContent.trim(), cta_local: ctaLocation(link), cta_destino: link.href.includes('agendar') ? 'visita' : 'orcamento' };
+  track('whatsapp_click', data);
+  if (link.id === 'form-cta') track('lead_formulario', { solucao: new FormData(form).get('solucao') });
+});
 trigger.addEventListener('click', prepare);
 form.addEventListener('submit', event => { event.preventDefault(); trigger.click(); });
 document.querySelector('#year').textContent = new Date().getFullYear();
