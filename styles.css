@@ -39,7 +39,10 @@ svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.7;flex:n
 .wm{font-family:var(--body);font-weight:700;font-size:34px;letter-spacing:-.03em;color:#fff}
 .wm b{color:var(--orange);font-weight:700}
 .wm-sub{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-top:6px}
-.footer-top .brand .wm{font-size:30px}
+.wm-img{width:230px;height:auto;mix-blend-mode:normal}
+.brand{align-items:flex-start}
+.wm-sub{margin-top:6px;align-self:flex-end;margin-right:2px}
+.footer-top .brand .wm-img{width:200px}
 
 .header{background:var(--ink);color:#fff;border-bottom:1px solid #3b3836}
 .header-inner{display:flex;align-items:center;justify-content:space-between;gap:32px;min-height:96px}
@@ -179,8 +182,8 @@ footer{background:var(--ink);color:#d2d0cf}
 .container{width:calc(100% - 40px)}
 .section{padding:62px 0}
 .header-inner{min-height:76px;gap:10px}
-.wm{font-size:26px}
-.wm-sub{font-size:9px}
+.wm-img{width:150px}
+.wm-sub{font-size:8px}
 .header .button{font-size:11px;gap:8px;padding:10px;white-space:nowrap}
 .header .button svg{width:17px;height:17px}
 .hero-grid{padding-top:34px;padding-bottom:34px;gap:30px}
