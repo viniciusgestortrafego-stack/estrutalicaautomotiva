@@ -32,15 +32,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="hero-foot"><span>Engenharia e fábrica em Guarulhos - SP</span><span>Pintura eletrostática e galvanização</span><span>Entregamos para todo o Brasil</span></div>
 </div>
 <div class="form-panel" id="cadastro"><h2>Solicite seu orçamento.</h2><p>Conte o que sua empresa precisa e inicie o atendimento pelo WhatsApp.</p>
-<form id="lead-form"><div class="field-grid">
+<form class="lead-form" id="lead-form" data-local="formulario"><div class="field-grid">
 <label>Nome completo<input name="nome" autocomplete="name" placeholder="Seu nome" required minlength="2" maxlength="120"></label>
 <label>Empresa<input name="empresa" autocomplete="organization" placeholder="Nome da empresa" required minlength="2" maxlength="160"></label>
 <label>WhatsApp<input name="telefone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(11) 99999-9999" required pattern="[+0-9 ()\-]{10,20}" maxlength="20"></label>
 <label>E-mail corporativo<input name="email" type="email" autocomplete="email" placeholder="voce@empresa.com.br" required maxlength="180"></label>
 </div>
-<label>O que você precisa?<select name="solucao" required><option value="">Selecione uma solução</option><option>Racks automotivos</option><option>Carrinhos logísticos</option><option>Bancadas industriais</option><option>Estruturas metálicas sob medida</option><option>Outra solução</option></select></label>
-<a id="form-cta" class="button full" data-cta href="https://wa.me/551149630188?text=Ol%C3%A1%20vi%20dos%20an%C3%BAncios%20e%20quero%20fazer%20um%20or%C3%A7amento" target="_blank" rel="noopener">Preparar cadastro no WhatsApp <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-<div id="form-result" hidden aria-live="polite"><p id="form-status"></p><label>Resumo para enviar<textarea id="lead-summary" readonly rows="7"></textarea></label><a class="text-link" data-cta href="https://wa.me/551149630188?text=Ol%C3%A1%20vi%20dos%20an%C3%BAncios%20e%20quero%20fazer%20um%20or%C3%A7amento" target="_blank" rel="noopener">Continuar no WhatsApp</a></div>
+<label>O que você precisa?<select name="solucao" required><option value="">Selecione uma solução</option><option>Racks automotivos</option><option>Carrinhos logísticos</option><option>Bancadas industriais</option><option>Estruturas metálicas sob medida</option><option>Outra solução</option><option>Agendar uma visita</option></select></label>
+<a class="button full form-submit" data-cta href="https://wa.me/551149630188?text=Ol%C3%A1%20vi%20dos%20an%C3%BAncios%20e%20quero%20fazer%20um%20or%C3%A7amento" target="_blank" rel="noopener">Preparar cadastro no WhatsApp <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+<div class="form-result" hidden aria-live="polite"><p class="form-status"></p><label>Resumo para enviar<textarea class="lead-summary" readonly rows="7"></textarea></label><a class="text-link form-continue" data-cta href="https://wa.me/551149630188?text=Ol%C3%A1%20vi%20dos%20an%C3%BAncios%20e%20quero%20fazer%20um%20or%C3%A7amento" target="_blank" rel="noopener">Continuar no WhatsApp</a></div>
 <noscript><p>Abra o WhatsApp pelo botão e informe seus dados na conversa.</p></noscript>
 </form></div>
 </div></section>
@@ -94,5 +94,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="closing-actions"><a class="button dark" data-cta href="https://wa.me/551149630188?text=Ol%C3%A1%20vi%20dos%20an%C3%BAncios%20e%20quero%20fazer%20um%20or%C3%A7amento" target="_blank" rel="noopener">Solicitar orçamento <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="text-link" data-cta href="https://wa.me/551149630188?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20visita%20%C3%A0%20Estrut%C3%A1lica." target="_blank" rel="noopener">Agendar uma visita <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
 <img src="assets/reuniao.jpg" alt="Sala de reunião da Estrutálica" loading="lazy" width="1536" height="1024"></div></section>
 </main>
+<dialog class="lead-modal" id="lead-modal" aria-labelledby="modal-title"><div class="modal-panel form-panel">
+<button class="modal-close" type="button" aria-label="Fechar">&times;</button>
+<h2 id="modal-title">Solicite seu orçamento.</h2><p>Conte o que sua empresa precisa e inicie o atendimento pelo WhatsApp.</p>
+<form class="lead-form" id="popup-form" data-local="popup"><div class="field-grid">
+<label>Nome completo<input autofocus name="nome" autocomplete="name" placeholder="Seu nome" required minlength="2" maxlength="120"></label>
+<label>Empresa<input name="empresa" autocomplete="organization" placeholder="Nome da empresa" required minlength="2" maxlength="160"></label>
+<label>WhatsApp<input name="telefone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(11) 99999-9999" required pattern="[+0-9 ()\-]{10,20}" maxlength="20"></label>
+<label>E-mail corporativo<input name="email" type="email" autocomplete="email" placeholder="voce@empresa.com.br" required maxlength="180"></label>
+</div>
+<label>O que você precisa?<select name="solucao" required><option value="">Selecione uma solução</option><option>Racks automotivos</option><option>Carrinhos logísticos</option><option>Bancadas industriais</option><option>Estruturas metálicas sob medida</option><option>Outra solução</option><option>Agendar uma visita</option></select></label>
+<a class="button full form-submit" data-cta href="https://wa.me/551149630188?text=Ol%C3%A1%20vi%20dos%20an%C3%BAncios%20e%20quero%20fazer%20um%20or%C3%A7amento" target="_blank" rel="noopener">Preparar cadastro no WhatsApp <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+<div class="form-result" hidden aria-live="polite"><p class="form-status"></p><label>Resumo para enviar<textarea class="lead-summary" readonly rows="7"></textarea></label><a class="text-link form-continue" data-cta href="https://wa.me/551149630188?text=Ol%C3%A1%20vi%20dos%20an%C3%BAncios%20e%20quero%20fazer%20um%20or%C3%A7amento" target="_blank" rel="noopener">Continuar no WhatsApp</a></div>
+<noscript><p>Abra o WhatsApp pelo botão e informe seus dados na conversa.</p></noscript>
+</form>
+</div></dialog>
 <footer><div class="container footer-top"><a class="brand" href="#" aria-label="Estrutálica Automotiva — início"><img class="wm-img" src="assets/logo.jpg" alt="Estrutálica Automotiva" width="680" height="240"></a><p>Racks, carrinhos, bancadas<br>e estruturas metálicas sob medida.</p><a href="mailto:contato@estrutalica.com.br">contato@estrutalica.com.br</a></div><div class="container footer-bottom"><span>© <span id="year">2026</span> Estrutálica Estruturas Metálicas. Guarulhos - SP.</span><span>Estruturas feitas para o seu processo.</span></div></footer>
 </body></html>
