@@ -101,6 +101,7 @@ form>label{margin-bottom:18px}
 @media(max-width:1100px){.maintenance-grid{gap:48px}}
 .carts .maintenance-grid{grid-template-columns:1fr 1.05fr}
 .carts+.maintenance{padding-top:0}
+.storage+.carts{padding-top:0}
 @media(max-width:800px){.carts .maintenance-grid{grid-template-columns:1fr}.carts .maintenance-photo{order:-1}}
 @media(max-width:800px){.maintenance-grid{grid-template-columns:1fr}.maintenance-photo img{height:360px}}
 @media(max-width:600px){.maintenance-photo img{height:260px}.maintenance-grid .button{width:100%;font-size:13px;gap:12px}}
