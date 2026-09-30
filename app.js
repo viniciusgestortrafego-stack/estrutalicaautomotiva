@@ -46,7 +46,7 @@ document.addEventListener('click', event => {
   if (!link || link.closest('.lead-form') || typeof modal.showModal !== 'function') return;
   event.preventDefault();
   const visit = link.href.includes('agendar');
-  modalForm.elements.solucao.value = visit ? 'Agendar uma visita' : '';
+  modalForm.elements.solucao.value = visit ? 'Agendar uma visita' : (link.dataset.solucao || '');
   modalForm.querySelector('.form-result').hidden = true;
   modal.showModal();
   track('popup_aberto', { cta_texto: link.textContent.trim(), cta_local: ctaLocation(link), cta_destino: visit ? 'visita' : 'orcamento' });
