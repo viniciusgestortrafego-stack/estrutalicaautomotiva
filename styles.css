@@ -209,6 +209,10 @@ footer{background:var(--ink);color:#d2d0cf}
 .footer-top a:not(.brand):hover{color:var(--orange)}
 footer address{font-style:normal;font-size:14px}
 .footer-contact{display:flex;flex-direction:column;gap:4px;font-size:14px}
+.instagram{display:inline-flex;align-items:center;gap:8px}
+.instagram svg{width:20px;height:20px}
+.location-ig{margin-top:18px;font-weight:700;color:#fff}
+.location-ig:hover{color:var(--orange)}
 .address{display:inline-flex;gap:12px;align-items:flex-start;margin-top:18px;font-size:16px;font-weight:700;line-height:1.5}
 .address svg{margin-top:1px}
 .address:hover span{text-decoration:underline}
