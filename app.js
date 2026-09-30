@@ -54,4 +54,5 @@ document.addEventListener('click', event => {
 modal.querySelector('.modal-close').addEventListener('click', () => modal.close());
 modal.addEventListener('click', event => { if (event.target === modal) modal.close(); });
 document.querySelectorAll('[data-track="rota"]').forEach(link => link.addEventListener('click', () => track('rota_click', { cta_local: 'localizacao' })));
+document.querySelectorAll('.instagram').forEach(link => link.addEventListener('click', () => track('instagram_click', { cta_local: link.closest('footer') ? 'rodape' : 'localizacao' })));
 document.querySelector('#year').textContent = new Date().getFullYear();
