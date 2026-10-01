@@ -110,6 +110,16 @@ form>label{margin-bottom:18px}
 @media(max-width:800px){.maintenance-grid{grid-template-columns:1fr}.maintenance-photo img{height:360px}}
 @media(max-width:600px){.maintenance-photo img{height:260px}.maintenance-grid .button{width:100%;font-size:13px;gap:12px}}
 
+/* Galvanização */
+.galv{background:var(--ink);color:var(--paper)}
+.galv .eyebrow{color:var(--orange)}
+.galv .lead{color:var(--paper)}
+.galv-steps{margin:30px 0 34px;border-top:1px solid var(--ink-line)}
+.galv-steps li{display:grid;grid-template-columns:56px 1fr;gap:12px;padding:20px 0;border-bottom:1px solid var(--ink-line)}
+.galv-steps span{font-family:var(--display);font-weight:700;font-size:34px;line-height:1;color:var(--orange)}
+.galv-steps h3{color:var(--paper)}
+.galv-steps p{color:var(--on-dark);margin-top:4px;font-size:15px}
+
 /* Benefits */
 .benefits{background:var(--ink);color:var(--paper)}
 .benefits-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
