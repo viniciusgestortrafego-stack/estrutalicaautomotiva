@@ -304,3 +304,4 @@ summary{font-size:15px}
 .modal-close:hover{color:var(--orange-text)}
 .lead-modal h2{padding-right:40px}
 body:has(.lead-modal[open]){overflow:hidden}
+.pos-low{object-position:center 72%}
