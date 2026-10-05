@@ -305,3 +305,7 @@ summary{font-size:15px}
 .lead-modal h2{padding-right:40px}
 body:has(.lead-modal[open]){overflow:hidden}
 .pos-low{object-position:center 72%}
+
+.footer-bottom .sep{margin:0 6px;opacity:.6}
+.credit{text-decoration:underline;text-underline-offset:3px}
+.credit:hover{color:var(--orange)}
