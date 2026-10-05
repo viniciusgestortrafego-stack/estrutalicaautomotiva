@@ -4,6 +4,18 @@ const modal = document.querySelector('#lead-modal');
 const modalForm = document.querySelector('#popup-form');
 window.dataLayer = window.dataLayer || [];
 function track(event, data) { window.dataLayer.push(Object.assign({ event }, data)); }
+// Receptor único de leads do grupo (Google Apps Script); grava na aba ESTRUTALICA AUTOMOTIVA.
+const LEAD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxAoy4dqn2MpZLo4XkhukZwYf2-eS-BAtvqsi4C2YQEbd872dRHULfAUbyQXZ_CAz7S/exec';
+const sentLeads = new Map();
+// Envio sem esperar resposta: o WhatsApp abre na hora. O mesmo cadastro reenviado usa o mesmo ID e não duplica a linha.
+function sendLead(values, local) {
+  const lead = { nome: values.get('nome').trim(), empresa: values.get('empresa').trim(), telefone: values.get('telefone').trim(), email: values.get('email').trim(), solucao: values.get('solucao'), origem: local };
+  const signature = JSON.stringify(lead);
+  if (!sentLeads.has(signature)) sentLeads.set(signature, crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(16).slice(2));
+  try {
+    fetch(LEAD_ENDPOINT, { method: 'POST', mode: 'no-cors', keepalive: true, headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ ...lead, brand: 'estrutalica-automotiva', requestId: sentLeads.get(signature) }) });
+  } catch (error) {}
+}
 
 function buildSummary(values) {
   const visit = values.get('solucao') === 'Agendar uma visita';
@@ -26,6 +38,7 @@ function setupForm(form) {
     status.textContent = 'Seus dados já seguem na mensagem do WhatsApp. É só enviar a conversa para concluir seu contato. Se ela não abriu, use o link abaixo.';
     if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(summary.value).catch(() => {});
     const local = form.dataset.local;
+    sendLead(values, local);
     track('whatsapp_click', { cta_texto: trigger.textContent.trim(), cta_local: local, cta_destino: values.get('solucao') === 'Agendar uma visita' ? 'visita' : 'orcamento' });
     track('lead_formulario', { solucao: values.get('solucao'), cta_local: local });
   }
