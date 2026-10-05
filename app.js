@@ -5,7 +5,7 @@ const modalForm = document.querySelector('#popup-form');
 window.dataLayer = window.dataLayer || [];
 function track(event, data) { window.dataLayer.push(Object.assign({ event }, data)); }
 // Receptor único de leads do grupo (Google Apps Script); grava na aba ESTRUTALICA AUTOMOTIVA.
-const LEAD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxkznTKFfKpCEY3QBiQ8FHEuQH8WTf2LO2irOGBET625_XASC8dHQCQ2catmxZeRzjo/exec';
+const LEAD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxAoy4dqn2MpZLo4XkhukZwYf2-eS-BAtvqsi4C2YQEbd872dRHULfAUbyQXZ_CAz7S/exec';
 const sentLeads = new Map();
 // Envio sem esperar resposta: o WhatsApp abre na hora. O mesmo cadastro reenviado usa o mesmo ID e não duplica a linha.
 function sendLead(values, local) {
