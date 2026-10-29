@@ -11,10 +11,12 @@ const sentLeads = new Map();
 function sendLead(values, local) {
   const lead = { nome: values.get('nome').trim(), empresa: values.get('empresa').trim(), telefone: values.get('telefone').trim(), email: values.get('email').trim(), solucao: values.get('solucao'), origem: local };
   const signature = JSON.stringify(lead);
-  if (!sentLeads.has(signature)) sentLeads.set(signature, crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(16).slice(2));
+  const isNew = !sentLeads.has(signature);
+  if (isNew) sentLeads.set(signature, crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(16).slice(2));
   try {
-    fetch(LEAD_ENDPOINT, { method: 'POST', mode: 'no-cors', keepalive: true, headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ ...lead, brand: 'estrutalica-automotiva', requestId: sentLeads.get(signature) }) });
+    fetch(LEAD_ENDPOINT, { method: 'POST', mode: 'no-cors', keepalive: true, headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ ...lead, brand: 'estrutalica-automotiva', requestId: sentLeads.get(signature) }) }).catch(() => {});
   } catch (error) {}
+  return { id: sentLeads.get(signature), isNew };
 }
 
 function buildSummary(values) {
@@ -38,7 +40,9 @@ function setupForm(form) {
     status.textContent = 'Seus dados já seguem na mensagem do WhatsApp. É só enviar a conversa para concluir seu contato. Se ela não abriu, use o link abaixo.';
     if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(summary.value).catch(() => {});
     const local = form.dataset.local;
-    sendLead(values, local);
+    const lead = sendLead(values, local);
+    // Evento de conversão para o GTM: dispara uma vez por cadastro (cliques repetidos com os mesmos dados não contam de novo).
+    if (lead.isNew) track('disparo_lead', { lead_id: lead.id, lead_origem: local, lead_solucao: values.get('solucao'), lead_tipo: values.get('solucao') === 'Agendar uma visita' ? 'visita' : 'orcamento', marca: 'estrutalica-automotiva' });
     track('whatsapp_click', { cta_texto: trigger.textContent.trim(), cta_local: local, cta_destino: values.get('solucao') === 'Agendar uma visita' ? 'visita' : 'orcamento' });
     track('lead_formulario', { solucao: values.get('solucao'), cta_local: local });
   }
