@@ -72,4 +72,5 @@ modal.querySelector('.modal-close').addEventListener('click', () => modal.close(
 modal.addEventListener('click', event => { if (event.target === modal) modal.close(); });
 document.querySelectorAll('[data-track="rota"]').forEach(link => link.addEventListener('click', () => track('rota_click', { cta_local: 'localizacao', unidade: link.dataset.unidade || 'guarulhos' })));
 document.querySelectorAll('.instagram').forEach(link => link.addEventListener('click', () => track('instagram_click', { cta_local: link.closest('footer') ? 'rodape' : 'localizacao' })));
+document.querySelectorAll('.footer-whatsapp').forEach(link => link.addEventListener('click', () => track('whatsapp_click', { cta_texto: link.textContent.trim(), cta_local: 'rodape', cta_destino: 'orcamento' })));
 document.querySelector('#year').textContent = new Date().getFullYear();
