@@ -13,3 +13,5 @@ Validação de layout em 320, 390, 768 e 1440 pixels; validação dos campos obr
 
 ## Integração com a planilha
 Ao preparar a mensagem do WhatsApp, o formulário também envia o cadastro (nome, empresa, WhatsApp, e-mail, solução, origem e um ID) ao receptor único de leads do grupo (Google Apps Script), que grava na aba ESTRUTALICA AUTOMOTIVA da planilha "GRUPO ESTRUTALICA - LEADS". O código do receptor está no repositório `onsuprimentos`, em `scripts/google-apps-script.gs`. O mesmo cadastro reenviado não cria linha duplicada.
+
+Junto com o cadastro vão os parâmetros de campanha da visita: `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `ad_id`, `gclid`, `gbraid`, `wbraid`, `fbclid`, `landing_page` e `referrer`. O site guarda os parâmetros da primeira visita que chegou com UTM por 90 dias (no navegador do visitante), então o lead mantém a origem mesmo se voltar depois sem os parâmetros na URL. Para aparecerem na planilha, o receptor precisa gravar esses campos em colunas próprias.

@@ -7,6 +7,28 @@ function track(event, data) { window.dataLayer.push(Object.assign({ event }, dat
 // Receptor único de leads do grupo (Google Apps Script); grava na aba ESTRUTALICA AUTOMOTIVA.
 const LEAD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxAoy4dqn2MpZLo4XkhukZwYf2-eS-BAtvqsi4C2YQEbd872dRHULfAUbyQXZ_CAz7S/exec';
 const sentLeads = new Map();
+// UTMs e IDs de clique da visita. Guarda os da primeira visita com UTM por 90 dias, para o lead
+// manter a origem mesmo se voltar depois ou navegar sem os parâmetros na URL.
+const TRACKING_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'ad_id', 'gclid', 'gbraid', 'wbraid', 'fbclid'];
+const TRACKING_STORE = 'estrutalica_utms';
+function readTracking() {
+  const params = new URLSearchParams(window.location.search);
+  const fromUrl = {};
+  TRACKING_KEYS.forEach(key => { const value = params.get(key); if (value) fromUrl[key] = value.slice(0, 300); });
+  let saved = null;
+  try { saved = JSON.parse(localStorage.getItem(TRACKING_STORE) || 'null'); } catch (error) {}
+  if (saved && Date.now() - saved.savedAt > 90 * 24 * 60 * 60 * 1000) saved = null;
+  if (Object.keys(fromUrl).length) {
+    saved = { ...fromUrl, landing_page: window.location.href.slice(0, 500), referrer: document.referrer.slice(0, 300), savedAt: Date.now() };
+    try { localStorage.setItem(TRACKING_STORE, JSON.stringify(saved)); } catch (error) {}
+  }
+  const data = {};
+  TRACKING_KEYS.concat(['landing_page', 'referrer']).forEach(key => { data[key] = (saved && saved[key]) || ''; });
+  if (!data.landing_page) data.landing_page = window.location.href.slice(0, 500);
+  if (!data.referrer) data.referrer = document.referrer.slice(0, 300);
+  return data;
+}
+const tracking = readTracking();
 // Envio sem esperar resposta: o WhatsApp abre na hora. O mesmo cadastro reenviado usa o mesmo ID e não duplica a linha.
 function sendLead(values, local) {
   const lead = { nome: values.get('nome').trim(), empresa: values.get('empresa').trim(), telefone: values.get('telefone').trim(), email: values.get('email').trim(), solucao: values.get('solucao'), origem: local };
@@ -14,7 +36,7 @@ function sendLead(values, local) {
   const isNew = !sentLeads.has(signature);
   if (isNew) sentLeads.set(signature, crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(16).slice(2));
   try {
-    fetch(LEAD_ENDPOINT, { method: 'POST', mode: 'no-cors', keepalive: true, headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ ...lead, brand: 'estrutalica-automotiva', requestId: sentLeads.get(signature) }) }).catch(() => {});
+    fetch(LEAD_ENDPOINT, { method: 'POST', mode: 'no-cors', keepalive: true, headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ ...lead, ...tracking, brand: 'estrutalica-automotiva', requestId: sentLeads.get(signature) }) }).catch(() => {});
   } catch (error) {}
   return { id: sentLeads.get(signature), isNew };
 }
@@ -43,7 +65,7 @@ function setupForm(form) {
     const local = form.dataset.local;
     const lead = sendLead(values, local);
     // Evento de conversão para o GTM: dispara uma vez por cadastro (cliques repetidos com os mesmos dados não contam de novo).
-    if (lead.isNew) track('disparo_lead', { lead_id: lead.id, lead_origem: local, lead_solucao: values.get('solucao'), lead_tipo: values.get('solucao') === 'Agendar uma visita' ? 'visita' : 'orcamento', marca: 'estrutalica-automotiva' });
+    if (lead.isNew) track('disparo_lead', { lead_id: lead.id, lead_origem: local, lead_solucao: values.get('solucao'), lead_tipo: values.get('solucao') === 'Agendar uma visita' ? 'visita' : 'orcamento', marca: 'estrutalica-automotiva', utm_source: tracking.utm_source, utm_medium: tracking.utm_medium, utm_campaign: tracking.utm_campaign, utm_content: tracking.utm_content, utm_term: tracking.utm_term, ad_id: tracking.ad_id });
     track('whatsapp_click', { cta_texto: trigger.textContent.trim(), cta_local: local, cta_destino: values.get('solucao') === 'Agendar uma visita' ? 'visita' : 'orcamento' });
     track('lead_formulario', { solucao: values.get('solucao'), cta_local: local });
   }
