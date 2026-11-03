@@ -20,9 +20,10 @@ function sendLead(values, local) {
 }
 
 function buildSummary(values) {
-  const visit = values.get('solucao') === 'Agendar uma visita';
-  const intro = visit ? 'Olá, vi os anúncios e gostaria de agendar uma visita à Estrutálica.' : 'Olá, vi os anúncios e quero fazer um orçamento.';
-  return `${intro}\n\nNome: ${values.get('nome').trim()}\nEmpresa: ${values.get('empresa').trim()}\nWhatsApp: ${values.get('telefone').trim()}\nE-mail: ${values.get('email').trim()}\nSolução: ${values.get('solucao')}`;
+  // Na mensagem do WhatsApp vai só o serviço escolhido; os dados de contato seguem apenas para a planilha de leads.
+  const solucao = values.get('solucao');
+  if (solucao === 'Agendar uma visita') return 'Olá, vi os anúncios e gostaria de agendar uma visita à Estrutálica.';
+  return `Olá, vi os anúncios e quero fazer um orçamento de: ${solucao}.`;
 }
 
 function setupForm(form) {
@@ -37,7 +38,7 @@ function setupForm(form) {
     summary.value = buildSummary(values);
     links.forEach(link => { link.href = WHATSAPP + encodeURIComponent(summary.value); });
     result.hidden = false;
-    status.textContent = 'Seus dados já seguem na mensagem do WhatsApp. É só enviar a conversa para concluir seu contato. Se ela não abriu, use o link abaixo.';
+    status.textContent = 'Sua solicitação já segue na mensagem do WhatsApp. É só enviar a conversa para concluir seu contato. Se ela não abriu, use o link abaixo.';
     if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(summary.value).catch(() => {});
     const local = form.dataset.local;
     const lead = sendLead(values, local);
