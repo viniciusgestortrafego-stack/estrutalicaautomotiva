@@ -14,4 +14,4 @@ Landing page B2B em português, com identidade grafite, branco e laranja (`#1b19
 9. Fechamento: orçamento e convite para agendar visita.
 
 ## Formulário
-Nome, empresa, WhatsApp, e-mail e solução. O resumo é copiado para o visitante enviar no WhatsApp (`wa.me/551149630188`); não há banco de leads.
+Nome, empresa, WhatsApp, e-mail e solução. O resumo é copiado para o visitante enviar no WhatsApp (`wa.me/5511941015207`); não há banco de leads.

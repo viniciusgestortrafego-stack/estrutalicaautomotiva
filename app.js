@@ -1,5 +1,5 @@
 'use strict';
-const WHATSAPP = 'https://wa.me/551149630188?text=';
+const WHATSAPP = 'https://wa.me/5511941015207?text=';
 const modal = document.querySelector('#lead-modal');
 const modalForm = document.querySelector('#popup-form');
 window.dataLayer = window.dataLayer || [];
